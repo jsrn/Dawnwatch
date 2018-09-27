@@ -314,16 +314,13 @@ namespace Server.Items
 			Map.Felucca,
 			new[]
 			{
-				new PMEntry(new Point3D(4467, 1283, 5), 1012003), // Moonglow
-				new PMEntry(new Point3D(1336, 1997, 5), 1012004), // Britain
-				new PMEntry(new Point3D(1499, 3771, 5), 1012005), // Jhelom
-				new PMEntry(new Point3D(771, 752, 5), 1012006), // Yew
-				new PMEntry(new Point3D(2701, 692, 5), 1012007), // Minoc
-				new PMEntry(new Point3D(1828, 2948, -20), 1012008), // Trinsic
-				new PMEntry(new Point3D(643, 2067, 5), 1012009), // Skara Brae
-				/* Dynamic Z for Magincia to support both old and new maps. */
-				new PMEntry(new Point3D(3563, 2139, Map.Felucca.GetAverageZ(3563, 2139)), 1012010), // (New) Magincia
-				new PMEntry(new Point3D(2711, 2234, 0), 1019001) // Buccaneer's Den
+				new PMEntry( new Point3D(  963,  514, 5 ), 1005397, "Moon" ), // Moon
+				new PMEntry( new Point3D( 3723, 2155, 5 ), 1005397, "Clues" ), // Clues Island
+				new PMEntry( new Point3D( 2548, 2685, 5 ), 1005397, "Montor" ), // Montor
+				new PMEntry( new Point3D( 1918, 1504, 5 ), 1005397, "Devil Guard" ), // Devil Guard
+				new PMEntry( new Point3D( 1459, 1414, 5 ), 1005397, "Mountain Passage"), // Mountain Passage (Gate to Exodus Isle)
+				new PMEntry( new Point3D( 3831, 1507, 5 ), 1005397, "Time Awaits"), // Time Awaits
+				new PMEntry( new Point3D(  968, 2726, 5 ), 1005397), // The moongate is cloudy, and nothing can be made out.
 			});
 
 		public static readonly PMList Ilshenar = new PMList(
@@ -611,7 +608,15 @@ namespace Server.Items
 				}
 
 				AddButton(10, 35 + (i * 25), 2117, 2118, 0, GumpButtonType.Page, Array.IndexOf(m_Lists, checkLists[i]) + 1);
-				AddHtmlLocalized(30, 35 + (i * 25), 150, 20, checkLists[i].Number, false, false);
+				if (i == 1)
+				{
+					AddHtml(30, 35 + (i * 25), 150, 20, "The Colonies", false, false);
+				}
+				else
+				{
+					AddHtmlLocalized(30, 35 + (i * 25), 150, 20, checkLists[i].Number, false, false);
+				}
+				
 			}
 
 			for (var i = 0; i < m_Lists.Length; ++i)
@@ -719,14 +724,20 @@ namespace Server.Items
 			AddPage(index + 1);
 
 			AddButton(10, 35 + (offset * 25), 2117, 2118, 0, GumpButtonType.Page, index + 1);
-			AddHtmlLocalized(30, 35 + (offset * 25), 150, 20, list.SelNumber, false, false);
+			//AddHtmlLocalized(30, 35 + (offset * 25), 150, 20, list.SelNumber, false, false);
 
 			var entries = list.Entries;
 
 			for (var i = 0; i < entries.Length; ++i)
 			{
 				AddRadio(200, 35 + (i * 25), 210, 211, false, (index * 100) + i);
-				AddHtmlLocalized(225, 35 + (i * 25), 150, 20, entries[i].Number, false, false);
+				if (entries[i].Desc != "") {
+					AddHtml(225, 35 + (i * 25), 150, 20, entries[i].Desc, false, false);
+				}
+				else
+				{
+					AddHtmlLocalized(225, 35 + (i * 25), 150, 20, entries[i].Number, false, false);
+				}
 			}
 		}
 	}
