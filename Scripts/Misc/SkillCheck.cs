@@ -191,7 +191,8 @@ namespace Server.Misc
 			gc /= 2;
 
 			gc += (1.0 - chance) * (success ? 0.5 : (Core.AOS ? 0.0 : 0.2));
-			gc /= 2;
+			//gc /= 2;
+			gc /= 0.5;
 
 			gc *= skill.Info.GainFactor;
 
