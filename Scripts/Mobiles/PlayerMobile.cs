@@ -4010,6 +4010,25 @@ namespace Server.Mobiles
             if (LastKiller is BaseVoidCreature)
                 ((BaseVoidCreature)LastKiller).Mutate(VoidEvolution.Killing);
 			#endregion
+
+			DeterminePermadeath(m);
+		}
+
+		private void DeterminePermadeath(Mobile killer)
+		{
+			double pdChance = 5.0;
+
+			if (killer is BaseCreature)
+			{
+				Console.WriteLine("Killed by base creature.");
+				BaseCreature c = (BaseCreature)killer;
+				double totalStats = killer.Str + killer.Dex + killer.Int;
+				pdChance += (totalStats / 1350) * 80;
+			}
+
+			if (pdChance > 85) { pdChance = 85; }
+
+			Console.WriteLine("Had a " + pdChance.ToString() + "% chance of dying.");
 		}
 
 		private List<Mobile> m_PermaFlags;
