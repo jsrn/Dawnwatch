@@ -81,13 +81,6 @@ namespace Server.Items
                 return 95;
             }
         }
-        public override bool AllowMaleWearer
-        {
-            get
-            {
-                return false;
-            }
-        }
         public override int ArmorBase
         {
             get

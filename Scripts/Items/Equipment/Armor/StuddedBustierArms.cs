@@ -108,13 +108,6 @@ namespace Server.Items
                 return ArmorMeditationAllowance.Half;
             }
         }
-        public override bool AllowMaleWearer
-        {
-            get
-            {
-                return false;
-            }
-        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

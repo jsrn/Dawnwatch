@@ -3631,7 +3631,7 @@ namespace Server.Mobiles
 			if (m_FlaggedForPermadeath)
 			{
 				m_Permadead = true;
-				
+
 				SendMessage("Your last moments begin now. Use them wisely.");
 				Timer.DelayCall(TimeSpan.FromSeconds(10), () => { SendMessage("You feel cold."); });
 				Timer.DelayCall(TimeSpan.FromSeconds(20), () => { SendMessage("You feel very weak now..."); });

@@ -1648,14 +1648,6 @@ namespace Server.Items
             Weight = 3.0;
         }
 
-        public override bool AllowMaleWearer
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         public FemaleKimono(Serial serial)
             : base(serial)
         {
@@ -1741,14 +1733,6 @@ namespace Server.Items
             : base(0x2FBA, hue)
         {
             Weight = 2.0;
-        }
-
-        public override bool AllowMaleWearer
-        {
-            get
-            {
-                return false;
-            }
         }
 
         public FemaleElvenRobe(Serial serial)
