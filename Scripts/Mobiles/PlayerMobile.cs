@@ -353,6 +353,11 @@ namespace Server.Mobiles
         }
         #endregion
 
+		#region Dawnwatch
+		private bool m_FlaggedForPermadeath;
+		private bool m_Permadead;
+		#endregion
+
         #region Getters & Setters
         public List<Mobile> RecentlyReported { get { return m_RecentlyReported; } set { m_RecentlyReported = value; } }
 
@@ -441,6 +446,10 @@ namespace Server.Mobiles
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool MechanicalLife { get { return GetFlag(PlayerFlag.MechanicalLife); } set { SetFlag(PlayerFlag.MechanicalLife, value); } }
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public bool Permadead { get { return m_Permadead; } set { m_Permadead = value; m_FlaggedForPermadeath = value; } }
+
 		#endregion
 
 		#region PlayerFlags
@@ -3591,6 +3600,8 @@ namespace Server.Mobiles
 
 		public override void Resurrect()
 		{
+			if (m_Permadead) { return; }
+
 			bool wasAlive = Alive;
 
 			base.Resurrect();
@@ -3615,6 +3626,16 @@ namespace Server.Mobiles
 					BuffInfo.AddBuff(this, new BuffInfo(BuffIcon.ArcaneEmpowerment, 1078511, 1078512, AcceleratedSkill.ToString()));
 				}
 				#endregion
+			}
+
+			if (m_FlaggedForPermadeath)
+			{
+				SendMessage("Your last moments begin now. Use them wisely.");
+				m_Permadead = true;
+				Timer.DelayCall(TimeSpan.FromSeconds(30), () =>
+				{
+					Kill();
+				});
 			}
 		}
 
@@ -3868,6 +3889,16 @@ namespace Server.Mobiles
 			Mobile m = FindMostRecentDamager(false);
             PlayerMobile killer = m as PlayerMobile;
 
+			if (DeterminePermadeath(m))
+			{
+				m_FlaggedForPermadeath = true;
+				string deathMessage = "Death has rolled his dice, and now he has set his sights on you. " +
+					"A crushing blow from which you cannot recover, a thrust which unfortunately struck true. You are mortally " +
+					"wounded, and your journey is coming to an end. Upon resurrection, you will have a short time to utter your last words. " +
+					"Use that time wisely, for it is more than some are given...";
+				SendMessage(deathMessage);
+			}
+
             if (killer == null && m is BaseCreature)
             {
                 killer = ((BaseCreature)m).GetMaster() as PlayerMobile;
@@ -4011,10 +4042,10 @@ namespace Server.Mobiles
                 ((BaseVoidCreature)LastKiller).Mutate(VoidEvolution.Killing);
 			#endregion
 
-			DeterminePermadeath(m);
+			
 		}
 
-		private void DeterminePermadeath(Mobile killer)
+		private bool DeterminePermadeath(Mobile killer)
 		{
 			double pdChance = 5.0;
 
@@ -4028,7 +4059,9 @@ namespace Server.Mobiles
 
 			if (pdChance > 85) { pdChance = 85; }
 
-			Console.WriteLine("Had a " + pdChance.ToString() + "% chance of dying.");
+			double roll = Utility.RandomDouble() * 100;
+
+			return pdChance > roll;
 		}
 
 		private List<Mobile> m_PermaFlags;
