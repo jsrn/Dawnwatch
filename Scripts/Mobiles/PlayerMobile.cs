@@ -3630,12 +3630,12 @@ namespace Server.Mobiles
 
 			if (m_FlaggedForPermadeath)
 			{
-				SendMessage("Your last moments begin now. Use them wisely.");
 				m_Permadead = true;
-				Timer.DelayCall(TimeSpan.FromSeconds(30), () =>
-				{
-					Kill();
-				});
+				
+				SendMessage("Your last moments begin now. Use them wisely.");
+				Timer.DelayCall(TimeSpan.FromSeconds(10), () => { SendMessage("You feel cold."); });
+				Timer.DelayCall(TimeSpan.FromSeconds(20), () => { SendMessage("You feel very weak now..."); });
+				Timer.DelayCall(TimeSpan.FromSeconds(30), () => { Kill(); });
 			}
 		}
 
