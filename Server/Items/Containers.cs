@@ -18,6 +18,7 @@ namespace Server.Items
 		private bool m_Open;
 
 		public override int DefaultMaxWeight { get { return 0; } }
+		public override int DefaultMaxItems { get { return 10; } }
 
 		public override bool IsVirtualItem { get { return true; } }
 
@@ -32,6 +33,7 @@ namespace Server.Items
 
 			Movable = false;
 			Layer = Layer.Bank;
+			MaxItems = 10;
 		}
 
 		public BankBox(Serial serial)
