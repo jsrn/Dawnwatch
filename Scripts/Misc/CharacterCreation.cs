@@ -14,10 +14,10 @@ namespace Server.Misc
 		private static readonly CityInfo m_NewHavenInfo = new CityInfo(
 			"New Haven",
 			"The Bountiful Harvest Inn",
-			3503,
-			2574,
-			14,
-			Map.Trammel);
+			5267,
+			2768,
+			2,
+			Map.Felucca);
 
 		private static readonly CityInfo m_SiegeInfo = new CityInfo(
 			"Britain",
