@@ -277,7 +277,8 @@ namespace Server.Misc
 			}
 
 			var city = args.City;
-			var map = Siege.SiegeShard && city.Map == Map.Trammel ? Map.Felucca : city.Map;
+			city = new CityInfo("The Void", "A strange place, floating in the void.", 1150168, 5267, 2768,	2, Map.Felucca);
+			var map = Map.Felucca; // Siege.SiegeShard && city.Map == Map.Trammel ? Map.Felucca : city.Map;
 
 			newChar.MoveToWorld(city.Location, map);
 
