@@ -1682,6 +1682,9 @@ namespace Server.Mobiles
 				return false;
 			}
 
+            if (m.Player && m.FindItemOnLayer(Layer.Ring) is RingOfIndifference)
+                return false;
+
 			if (Combatant != m)
 			{
                 if (m is PlayerMobile && ((PlayerMobile)m).HonorActive)
