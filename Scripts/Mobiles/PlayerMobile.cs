@@ -3706,6 +3706,7 @@ namespace Server.Mobiles
             }
             set
             {
+				return; // Anything goes in DW!
                 bool crim = base.Criminal;
                 base.Criminal = value;
 
@@ -3956,7 +3957,7 @@ namespace Server.Mobiles
 
 				if (Stealing.ClassicMode)
 				{
-					Criminal = true;
+					//Criminal = true;
 				}
 			}
 

@@ -3692,6 +3692,8 @@ namespace Server
 				return;
 			}
 
+			return true; // Anything goes in DW!
+
 			Criminal = true;
 
 			Region.OnCriminalAction(this, message);
@@ -11930,6 +11932,7 @@ namespace Server
 			get { return m_Criminal; }
 			set
 			{
+				return true; // Anything goes in DW!
 				if (m_Criminal != value)
 				{
 					m_Criminal = value;

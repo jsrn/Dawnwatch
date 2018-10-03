@@ -83,8 +83,8 @@ namespace Server.Gumps
             if (m is PlayerMobile && ((PlayerMobile)m).NpcGuild == NpcGuild.ThievesGuild)
                 return;
 
-            if (killers.Count > 0)
-                new GumpTimer(m, killers).Start();
+            //if (killers.Count > 0) // No murder counts here
+            //    new GumpTimer(m, killers).Start();
         }
 
         public static void ReportedListExpiry_Callback(object state)
