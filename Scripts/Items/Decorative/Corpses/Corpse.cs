@@ -988,6 +988,8 @@ namespace Server.Items
 
 		public bool IsCriminalAction(Mobile from)
 		{
+			return false; // Anything goes on DW!
+			
 			if (from == m_Owner || from.AccessLevel >= AccessLevel.GameMaster)
 			{
 				return false;

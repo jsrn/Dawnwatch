@@ -65,6 +65,8 @@ namespace Server.Misc
 
 		public static bool Mobile_AllowBeneficial(Mobile from, Mobile target)
 		{
+			return true; // Anything goes in DW!
+
 			if (from == null || target == null || from.IsStaff() || target.IsStaff())
 				return true;
 
@@ -130,6 +132,8 @@ namespace Server.Misc
 
 		public static bool Mobile_AllowHarmful(Mobile from, IDamageable damageable)
 		{
+			return true; // Anything goes in DW!
+			
 			var target = damageable as Mobile;
 
 			if (from == null || target == null || from.IsStaff() || target.IsStaff())
