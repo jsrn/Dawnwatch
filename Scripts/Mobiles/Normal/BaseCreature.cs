@@ -2100,6 +2100,22 @@ namespace Server.Mobiles
         public WayPoint CurrentWayPoint { get { return m_CurrentWayPoint; } set { m_CurrentWayPoint = value; } }
 
         [CommandProperty(AccessLevel.GameMaster)]
+        public string PermadeathChance 
+        {
+            get
+            {
+                double pdChance = 5.0;
+
+				double totalStats = Str + Dex + Int;
+				pdChance += (totalStats / 1350) * 80;
+
+			    if (pdChance > 85) { pdChance = 85; }
+
+                return Math.Round(pdChance, 2) + "%";
+            }
+        }
+
+        [CommandProperty(AccessLevel.GameMaster)]
         public int CurrentNavPoint
         {
             get
