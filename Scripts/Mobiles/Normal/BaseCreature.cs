@@ -2100,7 +2100,7 @@ namespace Server.Mobiles
         public WayPoint CurrentWayPoint { get { return m_CurrentWayPoint; } set { m_CurrentWayPoint = value; } }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public string PermadeathChance 
+        public string PDChance 
         {
             get
             {
