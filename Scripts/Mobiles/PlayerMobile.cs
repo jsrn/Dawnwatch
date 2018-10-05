@@ -5218,6 +5218,11 @@ namespace Server.Mobiles
 				return true;
 			}
 
+			if (m is PlayerMobile && ((PlayerMobile)m).Permadead && AccessLevel == AccessLevel.Player)
+			{
+				return false;
+			}
+
 			return base.CanSee(m);
 		}
 
