@@ -3630,12 +3630,10 @@ namespace Server.Mobiles
 
 			if (m_FlaggedForPermadeath)
 			{
-				m_Permadead = true;
-
 				SendMessage("Your last moments begin now. Use them wisely.");
 				Timer.DelayCall(TimeSpan.FromSeconds(10), () => { SendMessage("You feel cold."); });
 				Timer.DelayCall(TimeSpan.FromSeconds(20), () => { SendMessage("You feel very weak now..."); });
-				Timer.DelayCall(TimeSpan.FromSeconds(30), () => { Kill(); });
+				Timer.DelayCall(TimeSpan.FromSeconds(30), () => { m_Permadead = true; Kill(); });
 			}
 		}
 
@@ -3890,7 +3888,7 @@ namespace Server.Mobiles
 			Mobile m = FindMostRecentDamager(false);
             PlayerMobile killer = m as PlayerMobile;
 
-			if (DeterminePermadeath(m))
+			if (!m_FlaggedForPermadeath && DeterminePermadeath(m))
 			{
 				m_FlaggedForPermadeath = true;
 				string deathMessage = "Death has rolled his dice, and now he has set his sights on you. " +
@@ -3907,6 +3905,16 @@ namespace Server.Mobiles
 				{
 					killer.SendMessage(32, "Your weapon or spell strikes true, and you see your foe " + Name + " fall for the last time. Time to flee, or time to stand and gloat?");
 				}
+
+				IPooledEnumerable inRange = this.Map.GetMobilesInRange(Location, 15);
+                foreach (Mobile trg in inRange)
+                {
+					if (trg.Name != m.Name && trg.Name != Name && trg is PlayerMobile && this.Map.LineOfSight(trg, Location))
+					{
+						trg.SendMessage(32, "You witness " + m.Name + " strike " + Name + " down.");
+					}
+                }
+                inRange.Free();
 			}
 
             if (killer == null && m is BaseCreature)
