@@ -3897,11 +3897,16 @@ namespace Server.Mobiles
 					"A crushing blow from which you cannot recover, a thrust which unfortunately struck true. You are mortally " +
 					"wounded, and your journey is coming to an end. Upon resurrection, you will have a short time to utter your last words. " +
 					"Use that time wisely, for it is more than some are given...";
-				SendMessage(deathMessage);
+				SendMessage(32, deathMessage);
 
 				Timer.DelayCall(TimeSpan.FromSeconds(1), () => {
 					SendGump(new PermadeathGump());
 				});
+
+				if (killer != null)
+				{
+					killer.SendMessage(32, "Your weapon or spell strikes true, and you see your foe " + Name + " fall for the last time. Time to flee, or time to stand and gloat?");
+				}
 			}
 
             if (killer == null && m is BaseCreature)
