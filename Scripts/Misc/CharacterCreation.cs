@@ -218,8 +218,8 @@ namespace Server.Misc
 				
 				pm.Profession = args.Profession;
 
-				if (pm.IsPlayer() && pm.Account.Young && !Siege.SiegeShard)
-					young = pm.Young = true;
+				//if (pm.IsPlayer() && pm.Account.Young && !Siege.SiegeShard)
+					//young = pm.Young = true;
 			}
 
 			SetName(newChar, args.Name);
